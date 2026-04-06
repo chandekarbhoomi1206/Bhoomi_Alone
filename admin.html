@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Momeato Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Josefin Sans',sans-serif;
+}
+body{
+  background:#121212;
+  color:#f5f1e8;
+  padding:32px 18px 48px;
+}
+a{
+  color:#d4af37;
+  text-decoration:none;
+}
+.page{
+  max-width:1200px;
+  margin:0 auto;
+}
+.auth-shell{
+  min-height:calc(100vh - 80px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.auth-card{
+  width:min(100%, 460px);
+  background:#1d1d1d;
+  border:1px solid #2b2b2b;
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 16px 36px rgba(0,0,0,0.28);
+}
+.auth-card h1{
+  color:#d4af37;
+  font-size:40px;
+  margin-bottom:10px;
+}
+.auth-card p{
+  color:#d8d2c4;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+.auth-card input{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:16px;
+  background:#252525;
+  color:#f5f1e8;
+  font-size:16px;
+  margin-bottom:12px;
+}
+.auth-error{
+  color:#ff8e8e;
+  min-height:24px;
+  margin-bottom:8px;
+}
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+.hero h1{
+  font-size:48px;
+  color:#d4af37;
+}
+.hero p{
+  color:#d8d2c4;
+  margin-top:8px;
+}
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+button{
+  border:none;
+  border-radius:999px;
+  padding:12px 18px;
+  background:#d4af37;
+  color:#111;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+button.secondary{
+  background:#272727;
+  color:#f5f1e8;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+.panel{
+  background:#1d1d1d;
+  border:1px solid #2b2b2b;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 16px 36px rgba(0,0,0,0.28);
+}
+.panel h2{
+  color:#d4af37;
+  margin-bottom:6px;
+}
+.meta{
+  color:#b9b1a0;
+  font-size:15px;
+  margin-bottom:16px;
+}
+.status{
+  margin-bottom:20px;
+  color:#d8d2c4;
+}
+.filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+  margin-bottom:18px;
+}
+.filters input,
+.filters select{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:12px 14px;
+  background:#252525;
+  color:#f5f1e8;
+  font-size:15px;
+}
+.filter-toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#d8d2c4;
+  background:#252525;
+  border-radius:16px;
+  padding:12px 14px;
+}
+.filter-toggle input{
+  width:16px;
+  height:16px;
+  accent-color:#d4af37;
+}
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.card{
+  background:#252525;
+  border-radius:18px;
+  padding:18px;
+  border:1px solid #323232;
+}
+.card h3{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:10px;
+}
+.pill{
+  background:#d4af37;
+  color:#111;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:14px;
+  white-space:nowrap;
+}
+.subtext{
+  color:#d2cab7;
+  margin:6px 0;
+  line-height:1.5;
+}
+.items{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid #3b3b3b;
+}
+.items h4{
+  margin-bottom:10px;
+  color:#d4af37;
+  font-size:16px;
+}
+.items ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.empty{
+  color:#a9a090;
+  background:#252525;
+  border-radius:18px;
+  padding:16px;
+}
+@media(max-width:768px){
+  .hero h1{
+    font-size:36px;
+  }
+}
+</style>
+</head>
+<body>
+<div id="admin-login" class="auth-shell">
+  <div class="auth-card">
+    <h1>Admin Login</h1>
+    <p>Enter the admin password from your backend `.env` file to view orders and reservations.</p>
+    <input id="admin-password" type="password" placeholder="Admin password">
+    <p id="auth-error" class="auth-error"></p>
+    <div class="actions">
+      <button onclick="login()">Open Dashboard</button>
+      <button class="secondary" onclick="window.location.href='/'">Back to Website</button>
+    </div>
+  </div>
+</div>
+
+<div id="admin-dashboard" class="page" style="display:none">
+  <div class="hero">
+    <div>
+      <h1>Momeato Admin</h1>
+      <p>Latest orders and table reservations saved in Neon.</p>
+    </div>
+    <div class="actions">
+      <button onclick="loadDashboard()">Refresh</button>
+      <button class="secondary" onclick="logout()">Log Out</button>
+      <button class="secondary" onclick="window.location.href='/'">Open Website</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Orders</h2>
+      <p class="meta">Newest first</p>
+      <div class="filters">
+        <input id="order-name-filter" type="text" placeholder="Search name">
+        <input id="order-date-filter" type="date">
+        <select id="order-payment-filter">
+          <option value="">All payments</option>
+          <option value="PREPAID">Prepaid</option>
+          <option value="COD">Cash on Delivery</option>
+        </select>
+      </div>
+      <p id="orders-status" class="status">Loading orders...</p>
+      <div id="orders-list" class="list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Reservations</h2>
+      <p class="meta">Newest first</p>
+      <div class="filters">
+        <input id="reservation-name-filter" type="text" placeholder="Search name">
+        <input id="reservation-date-filter" type="date">
+        <label class="filter-toggle" for="reservation-preorder-filter">
+          <input id="reservation-preorder-filter" type="checkbox">
+          <span>Pre-order only</span>
+        </label>
+      </div>
+      <p id="reservations-status" class="status">Loading reservations...</p>
+      <div id="reservations-list" class="list"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+const API_BASE_URL = window.location.origin;
+const ADMIN_PASSWORD_KEY = "momeato_admin_password";
+let allOrders = [];
+let allReservations = [];
+
+function getAdminPassword(){
+  return sessionStorage.getItem(ADMIN_PASSWORD_KEY) || "";
+}
+
+function showLogin(errorMessage = ""){
+  document.getElementById("admin-login").style.display = "flex";
+  document.getElementById("admin-dashboard").style.display = "none";
+  document.getElementById("auth-error").textContent = errorMessage;
+}
+
+function showDashboard(){
+  document.getElementById("admin-login").style.display = "none";
+  document.getElementById("admin-dashboard").style.display = "block";
+  document.getElementById("auth-error").textContent = "";
+}
+
+function getAdminHeaders(){
+  return {
+    "X-Admin-Password": getAdminPassword()
+  };
+}
+
+async function login(){
+  const password = document.getElementById("admin-password").value.trim();
+
+  if(!password){
+    showLogin("Enter your admin password.");
+    return;
+  }
+
+  sessionStorage.setItem(ADMIN_PASSWORD_KEY, password);
+
+  try{
+    await loadDashboard();
+    showDashboard();
+  }catch(error){
+    sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
+    showLogin(error.message || "Login failed.");
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
+  document.getElementById("admin-password").value = "";
+  showLogin("");
+}
+
+function formatDate(value){
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())){
+    return value;
+  }
+
+  return date.toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
+}
+
+function formatCurrency(value){
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0
+  }).format(value);
+}
+
+function renderEmpty(container, message){
+  container.innerHTML = `<div class="empty">${message}</div>`;
+}
+
+function matchesDateFilter(value, selectedDate){
+  if(!selectedDate){
+    return true;
+  }
+
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())){
+    return false;
+  }
+
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 10);
+
+  return localDate === selectedDate;
+}
+
+function getFilteredOrders(){
+  const nameFilter = document.getElementById("order-name-filter").value.trim().toLowerCase();
+  const dateFilter = document.getElementById("order-date-filter").value;
+  const paymentFilter = document.getElementById("order-payment-filter").value;
+
+  return allOrders.filter(order => {
+    const matchesName = !nameFilter || order.customer_name.toLowerCase().includes(nameFilter);
+    const matchesPayment = !paymentFilter || order.payment_type === paymentFilter;
+    const matchesDate = matchesDateFilter(order.created_at, dateFilter);
+    return matchesName && matchesPayment && matchesDate;
+  });
+}
+
+function getFilteredReservations(){
+  const nameFilter = document.getElementById("reservation-name-filter").value.trim().toLowerCase();
+  const dateFilter = document.getElementById("reservation-date-filter").value;
+  const preorderOnly = document.getElementById("reservation-preorder-filter").checked;
+
+  return allReservations.filter(reservation => {
+    const matchesName = !nameFilter || reservation.customer_name.toLowerCase().includes(nameFilter);
+    const matchesDate = matchesDateFilter(reservation.reservation_at, dateFilter);
+    const matchesPreorder = !preorderOnly || reservation.include_preorder;
+    return matchesName && matchesDate && matchesPreorder;
+  });
+}
+
+function renderOrders(orders = getFilteredOrders()){
+  const container = document.getElementById("orders-list");
+  const status = document.getElementById("orders-status");
+
+  status.textContent = `${orders.length} order(s) shown`;
+
+  if(orders.length === 0){
+    renderEmpty(container, "No orders found yet.");
+    return;
+  }
+
+  container.innerHTML = orders.map(order => `
+    <article class="card">
+      <h3>
+        <span>Order #${order.id} - ${order.customer_name}</span>
+        <span class="pill">${order.payment_type}</span>
+      </h3>
+      <p class="subtext">${order.phone} | ${order.email}</p>
+      <p class="subtext">${order.address}</p>
+      <p class="subtext">Status: ${order.payment_status}</p>
+      <p class="subtext">Total: ${formatCurrency(order.total_amount)}</p>
+      <p class="subtext">Created: ${formatDate(order.created_at)}</p>
+      <div class="items">
+        <ul>
+          ${order.items.map(item => `<li>${item.item_name} x ${item.quantity} - ${formatCurrency(item.unit_price)}</li>`).join("")}
+        </ul>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderReservations(reservations = getFilteredReservations()){
+  const container = document.getElementById("reservations-list");
+  const status = document.getElementById("reservations-status");
+
+  status.textContent = `${reservations.length} reservation(s) shown`;
+
+  if(reservations.length === 0){
+    renderEmpty(container, "No reservations found yet.");
+    return;
+  }
+
+  container.innerHTML = reservations.map(reservation => `
+    <article class="card">
+      <h3>
+        <span>Reservation #${reservation.id}</span>
+        <span class="pill">${reservation.guests} Guest(s)</span>
+      </h3>
+      <p class="subtext">${reservation.customer_name}</p>
+      <p class="subtext">${reservation.phone}</p>
+      <p class="subtext">Table time: ${formatDate(reservation.reservation_at)}</p>
+      <p class="subtext">Saved: ${formatDate(reservation.created_at)}</p>
+      <p class="subtext">${reservation.message ? reservation.message : "No message added."}</p>
+      <p class="subtext">Pre-order: ${reservation.include_preorder ? "Included" : "Not included"}</p>
+      ${reservation.include_preorder && reservation.preorder_total ? `<p class="subtext">Pre-order total: ${formatCurrency(reservation.preorder_total)}</p>` : ""}
+      ${reservation.include_preorder && reservation.preorder_items && reservation.preorder_items.length ? `
+        <div class="items">
+          <h4>Pre-order Items</h4>
+          <ul>
+            ${reservation.preorder_items.map(item => `<li>${item.name} x ${item.quantity} - ${formatCurrency(item.price)}</li>`).join("")}
+          </ul>
+        </div>
+      ` : ""}
+    </article>
+  `).join("");
+}
+
+async function loadOrders(){
+  const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
+    headers: getAdminHeaders()
+  });
+
+  if(response.status === 401){
+    throw new Error("Wrong admin password.");
+  }
+
+  if(!response.ok){
+    throw new Error("Unable to load orders.");
+  }
+  return response.json();
+}
+
+async function loadReservations(){
+  const response = await fetch(`${API_BASE_URL}/api/admin/reservations`, {
+    headers: getAdminHeaders()
+  });
+
+  if(response.status === 401){
+    throw new Error("Wrong admin password.");
+  }
+
+  if(!response.ok){
+    throw new Error("Unable to load reservations.");
+  }
+  return response.json();
+}
+
+async function loadDashboard(){
+  const ordersStatus = document.getElementById("orders-status");
+  const reservationsStatus = document.getElementById("reservations-status");
+
+  ordersStatus.textContent = "Loading orders...";
+  reservationsStatus.textContent = "Loading reservations...";
+
+  try{
+    const [orders, reservations] = await Promise.all([
+      loadOrders(),
+      loadReservations()
+    ]);
+
+    allOrders = orders;
+    allReservations = reservations;
+    renderOrders();
+    renderReservations();
+    return true;
+  }catch(error){
+    ordersStatus.textContent = "Could not load data.";
+    reservationsStatus.textContent = "Could not load data.";
+    renderEmpty(document.getElementById("orders-list"), error.message || "Unable to load orders.");
+    renderEmpty(document.getElementById("reservations-list"), error.message || "Unable to load reservations.");
+    throw error;
+  }
+}
+
+function bindFilters(){
+  [
+    "order-name-filter",
+    "order-date-filter",
+    "order-payment-filter"
+  ].forEach(id => {
+    document.getElementById(id).addEventListener("input", () => renderOrders());
+    document.getElementById(id).addEventListener("change", () => renderOrders());
+  });
+
+  [
+    "reservation-name-filter",
+    "reservation-date-filter",
+    "reservation-preorder-filter"
+  ].forEach(id => {
+    document.getElementById(id).addEventListener("input", () => renderReservations());
+    document.getElementById(id).addEventListener("change", () => renderReservations());
+  });
+}
+
+if(getAdminPassword()){
+  bindFilters();
+  loadDashboard()
+    .then(() => showDashboard())
+    .catch(error => {
+      sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
+      showLogin(error.message || "Enter your admin password.");
+    });
+}else{
+  bindFilters();
+  showLogin("");
+}
+</script>
+</body>
+</html>

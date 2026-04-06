@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Momeato Restaurant</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Josefin Sans', sans-serif;
+}
+
+body{
+  background:#121212;
+  color:#eee;
+  scroll-behavior:smooth;
+}
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  z-index:1000;
+}
+.navbar a{
+  color:#d4af37;
+  text-decoration:none;
+  padding:16px 20px;
+}
+.navbar a:hover{
+  background:#222;
+  color:#fff;
+}
+
+/* HEADER */
+.bgimg{
+  height:100vh;
+  background:url("Photo1.png") center no-repeat;
+  background-size:contain;
+  position:relative;
+}
+.tag{
+  position:absolute;
+  bottom:30px;
+  left:30px;
+  background:#000;
+  padding:12px 18px;
+  border-radius:25px;
+  color:#d4af37;
+  font-size:18px;
+}
+
+/* SECTION */
+.section{
+  padding:120px 20px;
+}
+.card{
+  max-width:1200px;
+  margin:auto;
+  background:#1e1e1e;
+  padding:60px;
+  border-radius:22px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.7);
+}
+.card h1{
+  text-align:center;
+  font-size:56px;
+  margin-bottom:40px;
+  color:#d4af37;
+}
+
+/* TEXT */
+.card p, .card pre{
+  font-size:18px;
+  line-height:1.8;
+  white-space:pre-line;
+}
+
+/* IMAGES */
+.fullimg{
+  width:100%;
+  height:520px;
+  object-fit:cover;
+  border-radius:20px;
+  margin:20px 0;
+}
+.circle{
+  width:140px;
+  border-radius:50%;
+  margin-top:20px;
+}
+
+/* MENU */
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  margin-bottom:30px;
+}
+.tab{
+  background:#2a2a2a;
+  padding:14px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer;
+  color:#d4af37;
+}
+.tab.active,.tab:hover{
+  background:#d4af37;
+  color:#000;
+}
+
+.menu-box{
+  display:none;
+  background:#262626;
+  padding:30px;
+  border-radius:18px;
+}
+.menu-box h2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px dashed #555;
+  padding:12px 0;
+}
+.menu-box h2 span:last-child{
+  display:flex;
+  gap:10px;
+}
+
+/* BUTTON */
+.add-btn{
+  background:#d4af37;
+  border:none;
+  padding:6px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+.add-btn:hover{background:#fff}
+
+/* CART */
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:8px 0;
+}
+.cart-item span{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+
+.remove-btn{
+  background:none;
+  border:none;
+  color:#ff6b6b;
+  font-size:18px;
+  cursor:pointer;
+}
+.remove-btn:hover{
+  color:#ff0000;
+}
+
+
+.error-text{
+  color:#ff4d4d;
+  font-size:14px;
+  margin-top:6px;
+  display:none;
+}
+
+.reservation-notes{
+  min-height:110px;
+}
+
+.checkbox-row{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin:18px 0;
+  color:#f3ead2;
+  line-height:1.5;
+}
+
+.checkbox-row input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin:4px 0 0;
+  accent-color:#d4af37;
+  flex:0 0 auto;
+}
+
+.checkbox-row label{
+  cursor:pointer;
+}
+
+input.error, textarea.error{
+  border:2px solid #ff4d4d;
+}
+
+input.valid, textarea.valid{
+  border:2px solid #ffffff;
+}
+
+
+
+
+/* FORM */
+input,textarea,button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:25px;
+  border:none;
+}
+input,textarea{background:#222;color:white}
+button{background:#d4af37;font-weight:600;cursor:pointer}
+.cod{background:#444;color:white}
+
+/*  FORM Table Reservation*/
+input,button{
+  width:100%;
+  padding:16px;
+  margin-bottom:18px;
+  border-radius:30px;
+  border:none;
+  font-size:16px;
+}
+input{
+  background:#222;
+  color:#fff;
+}
+button{
+  background:#d4af37;
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover{
+  background:#fff;
+}
+
+/* CHEFS */
+.chef-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+  text-align:center;
+}
+.chef-grid img{
+  width:100%;
+  height:380px;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+/* MAP */
+iframe{
+  width:100%;
+  height:450px;
+  border:none;
+  border-radius:20px;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  color:#d4af37;
+  text-align:center;
+  padding:30px;
+}
+footer a{
+  color:#fff;
+  text-decoration:none;
+}
+
+
+
+/* MOBILE */
+@media(max-width:768px){
+  .card h1{font-size:38px}
+  .fullimg{height:300px}
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<a href="#home">HOME</a>
+<a href="#about">ABOUT</a>
+<a href="#interiors">INTERIORS</a>
+<a href="#menu">MENU</a>
+<a href="#cart" onclick="toggleCart()">CART (<span id="cart-count">0</span>)</a>
+<a href="#reservation">RESERVATION</a>
+<a href="#chefs">CHEFS</a>
+<a href="#location">LOCATION</a>
+<a href="#contact">CONTACT</a>
+</div>
+
+<!-- HEADER -->
+<div id="home" class="bgimg">
+<div class="tag">Open from 10am to 11pm</div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="section">
+<div class="card">
+<h1>About</h1>
+<p>
+The Momeato Restaurant was started in 2010 by Miss. Anupama Joshi.
+This restaurant serves one of the best foods in Ahmedabad.
+This is PURE VEG Restaurant.
+The aim is to serve quality food.
+The chefs are all Housewives.
+Not listed on Swiggy or Zomato.
+It is open from 10 am to 11 pm (All Seven Days).
+</p>
+<p><b>The Chef?</b> Mrs. Anupama A. Kapadia</p>
+<img src="Photo2.png" class="circle">
+<img src="Photo10.png" class="fullimg">
+</div>
+</div>
+
+<!-- INTERIORS -->
+<div id="interiors" class="section">
+<div class="card">
+<h1>Interiors</h1>
+<img src="Photo3.png" class="fullimg">
+<img src="Photo4.png" class="fullimg">
+<img src="Photo5.png" class="fullimg">
+<img src="Photo6.png" class="fullimg">
+</div>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="section">
+<div class="card">
+<h1>Menu</h1>
+
+<div class="tabs">
+<div class="tab active" onclick="openMenu('soup',this)">Soup</div>
+<div class="tab" onclick="openMenu('roasted',this)">Roasted Starter</div>
+<div class="tab" onclick="openMenu('oven',this)">Oven Baked</div>
+<div class="tab" onclick="openMenu('chinese',this)">Chinese</div>
+<div class="tab" onclick="openMenu('hindustani',this)">Hindustani Sabji</div>
+<div class="tab" onclick="openMenu('paneer',this)">Paneer ki Sabji</div>
+<div class="tab" onclick="openMenu('tandoori',this)">Tandoori</div>
+<div class="tab" onclick="openMenu('rice',this)">Rice</div>
+<div class="tab" onclick="openMenu('icecream',this)">Icecream</div>
+<div class="tab" onclick="openMenu('south',this)">South Indian</div>
+<div class="tab" onclick="openMenu('gujarati',this)">Gujarati Snacks</div>
+<div class="tab" onclick="openMenu('falooda',this)">Falooda</div>
+</div>
+
+
+
+<div id="soup" class="menu-box" style="display:block">
+<h2><span>Tomato Soup</span><span>₹92 <button class="add-btn" onclick="addToCart('Tomato Soup',92)">Add</button></span></h2>
+<h2><span>Ministrone Soup</span><span>₹92 <button class="add-btn" onclick="addToCart('Ministrone Soup',92)">Add</button></span></h2>
+<h2><span>Cream of Veg. Soup</span><span>₹92 <button class="add-btn" onclick="addToCart('Cream of Veg Soup',92)">Add</button></span></h2>
+<h2><span>Sweet Corn Veg. Soup</span><span>₹92 <button class="add-btn" onclick="addToCart('Sweet Corn Veg Soup',92)">Add</button></span></h2>
+<h2><span>Veg. Manchow Soup</span><span>₹95 <button class="add-btn" onclick="addToCart('Veg Manchow Soup',95)">Add</button></span></h2>
+<h2><span>Veg. Noodles Soup</span><span>₹95 <button class="add-btn" onclick="addToCart('Veg Noodles Soup',95)">Add</button></span></h2>
+<h2><span>Hot 'N' Sour Soup</span><span>₹95 <button class="add-btn" onclick="addToCart('Hot N Sour Soup',95)">Add</button></span></h2>
+<h2><span>Veg. Mushroom Soup</span><span>₹95 <button class="add-btn" onclick="addToCart('Veg Mushroom Soup',95)">Add</button></span></h2>
+
+</div>
+
+
+
+<!-- ROASTED STARTER -->
+<div id="roasted" class="menu-box">
+<h2><span>Paneer Tikka Dry</span><span>₹185<button class="add-btn" onclick="addToCart('Paneer Tikka Dry',185)">Add</button></span></h2>
+<h2><span>Makhmali Tikka Dry</span><span>₹185<button class="add-btn" onclick="addToCart('Makhmali Tikka Dry',185)">Add</button></span></h2>
+<h2><span>Malai Paneer Tikka Dry</span><span>₹185<button class="add-btn" onclick="addToCart('Malai Paneer Tikka Dry',185)">Add</button></span></h2>
+<h2><span>Cripsy Chilli Veg</span><span>₹175<button class="add-btn" onclick="addToCart('Crispy Chilli Veg',175)">Add</button></span></h2>
+<h2><span>Veg. Lollipop Dry</span><span>₹175<button class="add-btn" onclick="addToCart('Veg Lollipop Dry',175)">Add</button></span></h2>
+<h2><span>Stuffed Potato Dry</span><span>₹170<button class="add-btn" onclick="addToCart('Stuffed Potato Dry',170)">Add</button></span></h2>
+<h2><span>Aloo Tikka Dry</span><span>₹170<button class="add-btn" onclick="addToCart('Aloo Tikka Dry',170)">Add</button></span></h2>
+<h2><span>Tandoori Platter</span><span>₹295<button class="add-btn" onclick="addToCart('Tandoori Platter',295)">Add</button></span></h2>
+</div>
+
+
+<!-- OVEN BAKED -->
+<div id="oven" class="menu-box">
+<h2><span>Baked Macaroni with Pineapple</span><span>₹170<button class="add-btn" onclick="addToCart('Baked Macaroni with Pineapple',170)">Add</button></span></h2>
+<h2><span>Baked Spaghetti with Pineapple</span><span>₹170<button class="add-btn" onclick="addToCart('Baked Spaghetti with Pineapple',170)">Add</button></span></h2>
+<h2><span>Baked Veg with Pineapple</span><span>₹170<button class="add-btn" onclick="addToCart('Baked Veg with Pineapple',170)">Add</button></span></h2>
+<h2><span>Burmese Spaghetti</span><span>₹165<button class="add-btn" onclick="addToCart('Burmese Spaghetti',165)">Add</button></span></h2>
+<h2><span>Baked Macaroni Cheese</span><span>₹170<button class="add-btn" onclick="addToCart('Baked Macaroni Cheese',170)">Add</button></span></h2>
+<h2><span>Baked Spaghetti Cheese</span><span>₹165<button class="add-btn" onclick="addToCart('Baked Spaghetti Cheese',165)">Add</button></span></h2>
+<h2><span>Baked Mushroom</span><span>₹170<button class="add-btn" onclick="addToCart('Baked Mushroom',170)">Add</button></span></h2>
+</div>
+
+
+<!-- CHINESE -->
+<div id="chinese" class="menu-box">
+<h2><span>Veg. Manchurian</span><span>₹165<button class="add-btn" onclick="addToCart('Veg Manchurian',165)">Add</button></span></h2>
+<h2><span>Paneer Manchurian</span><span>₹179<button class="add-btn" onclick="addToCart('Paneer Manchurian',179)">Add</button></span></h2>
+<h2><span>Paneer Chilly Dry</span><span>₹179<button class="add-btn" onclick="addToCart('Paneer Chilly Dry',179)">Add</button></span></h2>
+<h2><span>Veg. Hakka Noodles</span><span>₹155<button class="add-btn" onclick="addToCart('Veg Hakka Noodles',155)">Add</button></span></h2>
+<h2><span>Veg. Mushroom</span><span>₹160<button class="add-btn" onclick="addToCart('Veg Mushroom',160)">Add</button></span></h2>
+<h2><span>Veg. Chowmein</span><span>₹155<button class="add-btn" onclick="addToCart('Veg Chowmein',155)">Add</button></span></h2>
+<h2><span>Veg. Manchurian with Noodles</span><span>₹190<button class="add-btn" onclick="addToCart('Veg Manchurian with Noodles',190)">Add</button></span></h2>
+</div>
+
+
+<!-- HINDUSTANI SABJI -->
+<div id="hindustani" class="menu-box">
+<h2><span>Veg. Kadai</span><span>₹165<button class="add-btn" onclick="addToCart('Veg Kadai',165)">Add</button></span></h2>
+<h2><span>Special Veg. Momeato</span><span>₹170<button class="add-btn" onclick="addToCart('Special Veg Momeato',170)">Add</button></span></h2>
+<h2><span>Khoya Kaju</span><span>₹180<button class="add-btn" onclick="addToCart('Khoya Kaju',180)">Add</button></span></h2>
+<h2><span>Fried Kaju Handi</span><span>₹180<button class="add-btn" onclick="addToCart('Fried Kaju Handi',180)">Add</button></span></h2>
+<h2><span>Diwani Handi</span><span>₹170<button class="add-btn" onclick="addToCart('Diwani Handi',170)">Add</button></span></h2>
+<h2><span>Veg. Kohlapuri</span><span>₹155<button class="add-btn" onclick="addToCart('Veg Kohlapuri',155)">Add</button></span></h2>
+<h2><span>Veg. Jaipuri</span><span>₹155<button class="add-btn" onclick="addToCart('Veg Jaipuri',155)">Add</button></span></h2>
+<h2><span>Veg. Makkhanwala</span><span>₹160<button class="add-btn" onclick="addToCart('Veg Makkhanwala',160)">Add</button></span></h2>
+<h2><span>Navratna Korma</span><span>₹165<button class="add-btn" onclick="addToCart('Navratna Korma',165)">Add</button></span></h2>
+<h2><span>Shahi Vegetable</span><span>₹155<button class="add-btn" onclick="addToCart('Shahi Vegetable',155)">Add</button></span></h2>
+<h2><span>Tomato Corn Bharta</span><span>₹160<button class="add-btn" onclick="addToCart('Tomato Corn Bharta',160)">Add</button></span></h2>
+<h2><span>Mushroom Mutter</span><span>₹165<button class="add-btn" onclick="addToCart('Mushroom Mutter',165)">Add</button></span></h2>
+<h2><span>Palak Corn Capsicum</span><span>₹155<button class="add-btn" onclick="addToCart('Palak Corn Capsicum',155)">Add</button></span></h2>
+<h2><span>Veg. Hara Masala</span><span>₹160<button class="add-btn" onclick="addToCart('Veg Hara Masala',160)">Add</button></span></h2>
+<h2><span>Dum Alu</span><span>₹155<button class="add-btn" onclick="addToCart('Dum Alu',155)">Add</button></span></h2>
+<h2><span>Kashmiri Dum Alu (Sweet)</span><span>₹160<button class="add-btn" onclick="addToCart('Kashmiri Dum Alu Sweet',160)">Add</button></span></h2>
+<h2><span>Alu Methi</span><span>₹130<button class="add-btn" onclick="addToCart('Alu Methi',130)">Add</button></span></h2>
+<h2><span>Alu Palak</span><span>₹135<button class="add-btn" onclick="addToCart('Alu Palak',135)">Add</button></span></h2>
+<h2><span>Alu Dahiwala</span><span>₹135<button class="add-btn" onclick="addToCart('Alu Dahiwala',135)">Add</button></span></h2>
+<h2><span>Mix Veg</span><span>₹130<button class="add-btn" onclick="addToCart('Mix Veg',130)">Add</button></span></h2>
+<h2><span>Suki Bhaji</span><span>₹120<button class="add-btn" onclick="addToCart('Suki Bhaji',120)">Add</button></span></h2>
+<h2><span>Bhindi Masala</span><span>₹110<button class="add-btn" onclick="addToCart('Bhindi Masala',110)">Add</button></span></h2>
+<h2><span>Chana Masala</span><span>₹130<button class="add-btn" onclick="addToCart('Chana Masala',130)">Add</button></span></h2>
+</div>
+
+
+<!-- PANEER KI SABJI -->
+<div id="paneer" class="menu-box">
+<h2><span>Cheese Paneer Masala</span><span>₹175<button class="add-btn" onclick="addToCart('Cheese Paneer Masala',175)">Add</button></span></h2>
+<h2><span>Paneer Kadai</span><span>₹175<button class="add-btn" onclick="addToCart('Paneer Kadai',175)">Add</button></span></h2>
+<h2><span>Paneer Tikka Masala</span><span>₹180<button class="add-btn" onclick="addToCart('Paneer Tikka Masala',180)">Add</button></span></h2>
+<h2><span>Paneer Butter Masala</span><span>₹155<button class="add-btn" onclick="addToCart('Paneer Butter Masala',155)">Add</button></span></h2>
+<h2><span>Paneer Shahi Korma</span><span>₹170<button class="add-btn" onclick="addToCart('Paneer Shahi Korma',170)">Add</button></span></h2>
+<h2><span>Paneer Bhurji</span><span>₹180<button class="add-btn" onclick="addToCart('Paneer Bhurji',180)">Add</button></span></h2>
+<h2><span>Paneer Methi Masala</span><span>₹190<button class="add-btn" onclick="addToCart('Paneer Methi Masala',190)">Add</button></span></h2>
+<h2><span>Mutter Paneer</span><span>₹155<button class="add-btn" onclick="addToCart('Mutter Paneer',155)">Add</button></span></h2>
+<h2><span>Palak Paneer</span><span>₹190<button class="add-btn" onclick="addToCart('Palak Paneer',190)">Add</button></span></h2>
+<h2><span>Paneer Pahadi</span><span>₹155<button class="add-btn" onclick="addToCart('Paneer Pahadi',155)">Add</button></span></h2>
+<h2><span>Paneer Lajawab</span><span>₹190<button class="add-btn" onclick="addToCart('Paneer Lajawab',190)">Add</button></span></h2>
+<h2><span>Paneer Handi</span><span>₹185<button class="add-btn" onclick="addToCart('Paneer Handi',185)">Add</button></span></h2>
+<h2><span>Paneer Tufani</span><span>₹190<button class="add-btn" onclick="addToCart('Paneer Tufani',190)">Add</button></span></h2>
+<h2><span>Paneer Lababdar</span><span>₹155<button class="add-btn" onclick="addToCart('Paneer Lababdar',155)">Add</button></span></h2>
+<h2><span>Paneer Zapak</span><span>₹190<button class="add-btn" onclick="addToCart('Paneer Zapak',190)">Add</button></span></h2>
+<h2><span>Paneer Tawa Masala</span><span>₹195<button class="add-btn" onclick="addToCart('Paneer Tawa Masala',195)">Add</button></span></h2>
+<h2><span>Paneer Kohlapuri</span><span>₹190<button class="add-btn" onclick="addToCart('Paneer Kohlapuri',190)">Add</button></span></h2>
+</div>
+
+
+
+<!-- TANDOORI -->
+<div id="tandoori" class="menu-box">
+<h2><span>Roti</span><span>₹18<button class="add-btn" onclick="addToCart('Roti',18)">Add</button></span></h2>
+<h2><span>Butter Roti</span><span>₹21<button class="add-btn" onclick="addToCart('Butter Roti',21)">Add</button></span></h2>
+<h2><span>Missi Roti</span><span>₹29<button class="add-btn" onclick="addToCart('Missi Roti',29)">Add</button></span></h2>
+<h2><span>Plain Parotha</span><span>₹29<button class="add-btn" onclick="addToCart('Plain Parotha',29)">Add</button></span></h2>
+<h2><span>Butter Parotha</span><span>₹32<button class="add-btn" onclick="addToCart('Butter Parotha',32)">Add</button></span></h2>
+<h2><span>Stuffed Parotha</span><span>₹48<button class="add-btn" onclick="addToCart('Stuffed Parotha',48)">Add</button></span></h2>
+<h2><span>Plain Naan</span><span>₹46<button class="add-btn" onclick="addToCart('Plain Naan',46)">Add</button></span></h2>
+<h2><span>Butter Naan</span><span>₹51<button class="add-btn" onclick="addToCart('Butter Naan',51)">Add</button></span></h2>
+<h2><span>Cheese Naan</span><span>₹56<button class="add-btn" onclick="addToCart('Cheese Naan',56)">Add</button></span></h2>
+<h2><span>Stuffed Naan</span><span>₹60<button class="add-btn" onclick="addToCart('Stuffed Naan',60)">Add</button></span></h2>
+<h2><span>Cheese Chilly Naan</span><span>₹52<button class="add-btn" onclick="addToCart('Cheese Chilly Naan',52)">Add</button></span></h2>
+<h2><span>Cheese Garlic Naan</span><span>₹60<button class="add-btn" onclick="addToCart('Cheese Garlic Naan',60)">Add</button></span></h2>
+<h2><span>Butter Kucha</span><span>₹67<button class="add-btn" onclick="addToCart('Butter Kucha',67)">Add</button></span></h2>
+<h2><span>Stuffed Kucha</span><span>₹70<button class="add-btn" onclick="addToCart('Stuffed Kucha',70)">Add</button></span></h2>
+<h2><span>Puri</span><span>₹22<button class="add-btn" onclick="addToCart('Puri',22)">Add</button></span></h2>
+</div>
+
+<!-- RICE -->
+<div id="rice" class="menu-box">
+<h2><span>Hyderabadi Biryani</span><span>₹120<button class="add-btn" onclick="addToCart('Hyderabadi Biryani',120)">Add</button></span></h2>
+<h2><span>Veg. Biryani</span><span>₹115<button class="add-btn" onclick="addToCart('Veg Biryani',115)">Add</button></span></h2>
+<h2><span>Shahjani Pulav (Sweet)</span><span>₹115<button class="add-btn" onclick="addToCart('Shahjani Pulav Sweet',115)">Add</button></span></h2>
+<h2><span>Kashmiri Pulav (Sweet)</span><span>₹115<button class="add-btn" onclick="addToCart('Kashmiri Pulav Sweet',115)">Add</button></span></h2>
+<h2><span>Veg. Pulav</span><span>₹110<button class="add-btn" onclick="addToCart('Veg Pulav',110)">Add</button></span></h2>
+<h2><span>Peas Pulav</span><span>₹110<button class="add-btn" onclick="addToCart('Peas Pulav',110)">Add</button></span></h2>
+<h2><span>Jeera Fry Rice</span><span>₹105<button class="add-btn" onclick="addToCart('Jeera Fry Rice',105)">Add</button></span></h2>
+<h2><span>Plain Rice</span><span>₹90<button class="add-btn" onclick="addToCart('Plain Rice',90)">Add</button></span></h2>
+<h2><span>Steam Plain Rice</span><span>₹90<button class="add-btn" onclick="addToCart('Steam Plain Rice',90)">Add</button></span></h2>
+</div>
+
+
+<!-- ICECREAM -->
+<div id="icecream" class="menu-box">
+<h2><span>Honeymoon Special</span><span>₹99<button class="add-btn" onclick="addToCart('Honeymoon Special',99)">Add</button></span></h2>
+<h2><span>Double Sundae</span><span>₹90<button class="add-btn" onclick="addToCart('Double Sundae',90)">Add</button></span></h2>
+<h2><span>Raj Bhoj</span><span>₹55<button class="add-btn" onclick="addToCart('Raj Bhoj',55)">Add</button></span></h2>
+<h2><span>Raja Rani</span><span>₹58<button class="add-btn" onclick="addToCart('Raja Rani',58)">Add</button></span></h2>
+<h2><span>Almond Carnival</span><span>₹55<button class="add-btn" onclick="addToCart('Almond Carnival',55)">Add</button></span></h2>
+<h2><span>Kaju Anjir</span><span>₹53<button class="add-btn" onclick="addToCart('Kaju Anjir',53)">Add</button></span></h2>
+<h2><span>Butter Scotch</span><span>₹49<button class="add-btn" onclick="addToCart('Butter Scotch',49)">Add</button></span></h2>
+<h2><span>Mango</span><span>₹49<button class="add-btn" onclick="addToCart('Mango',49)">Add</button></span></h2>
+<h2><span>Casata</span><span>₹60<button class="add-btn" onclick="addToCart('Casata',60)">Add</button></span></h2>
+<h2><span>Pineapple</span><span>₹45<button class="add-btn" onclick="addToCart('Pineapple',45)">Add</button></span></h2>
+<h2><span>Vanilla</span><span>₹42<button class="add-btn" onclick="addToCart('Vanilla',42)">Add</button></span></h2>
+<h2><span>Cherry Berry</span><span>₹42<button class="add-btn" onclick="addToCart('Cherry Berry',42)">Add</button></span></h2>
+</div>
+
+<!-- SOUTH INDIAN -->
+<div id="south" class="menu-box">
+<h2><span>Plain Dosa</span><span>₹50<button class="add-btn" onclick="addToCart('Plain Dosa',50)">Add</button></span></h2>
+<h2><span>Masala Dosa</span><span>₹90<button class="add-btn" onclick="addToCart('Masala Dosa',90)">Add</button></span></h2>
+<h2><span>Mysore Plain Dosa</span><span>₹100<button class="add-btn" onclick="addToCart('Mysore Plain Dosa',100)">Add</button></span></h2>
+<h2><span>Mysore Masala Dosa</span><span>₹120<button class="add-btn" onclick="addToCart('Mysore Masala Dosa',120)">Add</button></span></h2>
+<h2><span>Idli (3 pcs)</span><span>₹55<button class="add-btn" onclick="addToCart('Idli 3 pcs',55)">Add</button></span></h2>
+<h2><span>Masala Idli (3 pcs)</span><span>₹75<button class="add-btn" onclick="addToCart('Masala Idli 3 pcs',75)">Add</button></span></h2>
+<h2><span>Plain Uttapa</span><span>₹50<button class="add-btn" onclick="addToCart('Plain Uttapa',50)">Add</button></span></h2>
+<h2><span>Masala Uttapa</span><span>₹70<button class="add-btn" onclick="addToCart('Masala Uttapa',70)">Add</button></span></h2>
+<h2><span>Onion Uttapa</span><span>₹75<button class="add-btn" onclick="addToCart('Onion Uttapa',75)">Add</button></span></h2>
+<h2><span>Tomato Uttapa</span><span>₹80<button class="add-btn" onclick="addToCart('Tomato Uttapa',80)">Add</button></span></h2>
+<h2><span>Tomato Onion Uttapa</span><span>₹90<button class="add-btn" onclick="addToCart('Tomato Onion Uttapa',90)">Add</button></span></h2>
+</div>
+
+
+<!-- GUJARATI SNACKS -->
+<div id="gujarati" class="menu-box">
+<h2><span>Fafda Gathiya (250 gms)</span><span>₹93<button class="add-btn" onclick="addToCart('Fafda Gathiya 250 gms',93)">Add</button></span></h2>
+<h2><span>Papdi Gathiya (250 gms)</span><span>₹69<button class="add-btn" onclick="addToCart('Papdi Gathiya 250 gms',69)">Add</button></span></h2>
+<h2><span>Bhavnagari Gathiya (250 gms)</span><span>₹75<button class="add-btn" onclick="addToCart('Bhavnagari Gathiya 250 gms',75)">Add</button></span></h2>
+<h2><span>Khandvi (250 gms)</span><span>₹90<button class="add-btn" onclick="addToCart('Khandvi 250 gms',90)">Add</button></span></h2>
+<h2><span>Fulwadi (250 gms)</span><span>₹100<button class="add-btn" onclick="addToCart('Fulwadi 250 gms',100)">Add</button></span></h2>
+<h2><span>Patra (250 gms)</span><span>₹120<button class="add-btn" onclick="addToCart('Patra 250 gms',120)">Add</button></span></h2>
+<h2><span>Jalebi (250 gms)</span><span>₹110<button class="add-btn" onclick="addToCart('Jalebi 250 gms',110)">Add</button></span></h2>
+<h2><span>Khaman (250 gms)</span><span>₹70<button class="add-btn" onclick="addToCart('Khaman 250 gms',70)">Add</button></span></h2>
+<h2><span>Dhokla (250 gms)</span><span>₹75<button class="add-btn" onclick="addToCart('Dhokla 250 gms',75)">Add</button></span></h2>
+<h2><span>Sev Khamani (250 gms)</span><span>₹80<button class="add-btn" onclick="addToCart('Sev Khamani 250 gms',80)">Add</button></span></h2>
+<h2><span>Navtad Samosa (6 pcs)</span><span>₹90<button class="add-btn" onclick="addToCart('Navtad Samosa 6 pcs',90)">Add</button></span></h2>
+</div>
+
+<!-- FALOODA -->
+<div id="falooda" class="menu-box">
+<h2><span>Mix Icecream Falooda</span><span>₹80<button class="add-btn" onclick="addToCart('Mix Icecream Falooda',80)">Add</button></span></h2>
+<h2><span>Kaju Falooda</span><span>₹90<button class="add-btn" onclick="addToCart('Kaju Falooda',90)">Add</button></span></h2>
+<h2><span>Butter Scotch Falooda</span><span>₹100<button class="add-btn" onclick="addToCart('Butter Scotch Falooda',100)">Add</button></span></h2>
+<h2><span>Black Current Falooda</span><span>₹110<button class="add-btn" onclick="addToCart('Black Current Falooda',110)">Add</button></span></h2>
+<h2><span>Royal Falooda</span><span>₹110<button class="add-btn" onclick="addToCart('Royal Falooda',110)">Add</button></span></h2>
+<h2><span>Chocolate Falooda</span><span>₹130<button class="add-btn" onclick="addToCart('Chocolate Falooda',130)">Add</button></span></h2>
+<h2><span>Mango Falooda</span><span>₹130<button class="add-btn" onclick="addToCart('Mango Falooda',130)">Add</button></span></h2>
+<h2><span>Malai Falooda</span><span>₹140<button class="add-btn" onclick="addToCart('Malai Falooda',140)">Add</button></span></h2>
+<h2><span>Royal Malai Falooda</span><span>₹140<button class="add-btn" onclick="addToCart('Royal Malai Falooda',140)">Add</button></span></h2>
+<h2><span>Green Pista Falooda</span><span>₹140<button class="add-btn" onclick="addToCart('Green Pista Falooda',140)">Add</button></span></h2>
+</div>
+
+
+</div>
+
+
+<!-- CART SECTION (LIKE MENU PAGE) -->
+<div id="cart" class="section">
+<div class="card">
+<h1>Your Cart</h1>
+
+<div id="cart-items"></div>
+<p id="empty-cart" class="empty">Your cart is empty (0 items)</p>
+
+<h3>Total ₹ <span id="cart-total">0</span></h3>
+
+<button id="order-btn" onclick="showOrderForm()" style="display:none">
+ORDER NOW
+</button>
+
+<!-- ORDER FORM -->
+<div id="order-form" style="display:none">
+
+<input id="order-name" placeholder="Name">
+<div id="order-name-error" class="error-text">Name must be at least 3 characters</div>
+
+<input id="order-phone" placeholder="Phone Number">
+<div id="order-phone-error" class="error-text">Phone must be exactly 10 digits</div>
+
+<input id="order-email" placeholder="Email ID">
+<div id="order-email-error" class="error-text">Email must be at least 8 characters</div>
+
+<textarea id="order-address" placeholder="Address"></textarea>
+<div id="order-address-error" class="error-text">Address must be at least 12 characters</div>
+
+<button onclick="validateOrder()">Pay Now</button>
+<button class="cod" onclick="validateCOD()">Cash on Delivery</button>
+</div>
+
+<!-- QR -->
+<div id="qr-box" style="display:none;text-align:center;margin-top:20px">
+  <p>Scan QR & Click Confirm Payment</p>
+  <img src="qr.png" width="180"><br><br>
+  <button onclick="sendOrderEmail()">CONFIRM PAYMENT</button>
+</div>
+
+
+</div>
+</div>
+
+
+
+
+<!-- RESERVATION -->
+<div id="reservation" class="section">
+<div class="card">
+<h1>Table Reservation</h1>
+<input id="res-name" placeholder="Name">
+<div id="res-name-error" class="error-text">Name must be at least 3 characters</div>
+
+<input id="res-phone" placeholder="Phone Number">
+<div id="res-phone-error" class="error-text">Phone must be exactly 10 digits</div>
+
+<input id="res-guests" type="number" min="1" placeholder="Number of Guests">
+<div id="res-guests-error" class="error-text">Minimum 1 guest required</div>
+
+<input id="res-datetime" type="datetime-local">
+<div id="res-datetime-error" class="error-text">Please select date and time</div>
+
+<textarea id="res-message" class="reservation-notes" placeholder="Special requests or notes"></textarea>
+
+<div class="checkbox-row">
+  <input id="res-preorder" type="checkbox">
+  <label for="res-preorder">Include my current cart as a pre-order for this visit (pay at restaurant)</label>
+</div>
+
+<button onclick="validateReservation()">BOOK TABLE</button>
+
+</div>
+</div>
+
+<!-- CHEFS -->
+<div id="chefs" class="section">
+<div class="card">
+<h1>Our Chefs</h1>
+<div class="chef-grid">
+<div><img src="Photo7.png"><h3>Anupama Kapadia</h3> <p>Head Chef</p> </div>
+<div><img src="Photo8.png"><h3>Anjali Patel</h3><p>Specialist of Punjabi Cuisine</p></div>
+<div><img src="Photo9.png"><h3>Pooja Bhavsar</h3><p>Specialist of South Indian Cuisine</p></div>
+</div>
+</div>
+</div>
+
+<!-- LOCATION -->
+<div id="location" class="section">
+<div class="card">
+<h1>Location</h1>
+<iframe src="https://www.google.com/maps/embed"></iframe>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section">
+<div class="card">
+<h1>Contact</h1>
+
+  <h2>Address :</h2>
+  
+  <pre>
+<b>Dairy Corner,
+Kankaria Road,
+Near Diwan Ballubhai School
+Kankaria Gate No. : 3,
+Kankaria,
+Ahmedabad - 380008.</b>
+
+  </pre>
+
+  <h2>Phone Number :</h2>
+  <pre>
+<b>8866436934
+8200016294</b>
+  </pre>
+
+  <p>
+    <span style="background:black;color:white;padding:5px 10px;">NOTE :</span>
+    We offer full-service catering for any event, large or small.
+    We understand your needs and we will cater the food to satisfy the biggest
+    criteria of them all, both look and taste.
+  </p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<footer>
+Powered & Designed by <a href="#">Bhoomi S. Chandekar</a>
+<div style="margin-top:12px"><a href="/admin.html">Open Admin Dashboard</a></div>
+</footer>
+
+<script>
+let cart=[];
+let total=0;
+const API_BASE_URL = window.location.origin;
+
+function addToCart(name,price){
+  cart.push({name,price});
+  total+=price;
+  updateCart();
+}
+
+function removeItem(index){
+  total -= cart[index].price;
+  cart.splice(index,1);
+  updateCart();
+}
+
+
+function updateCart(){
+  let box=document.getElementById("cart-items");
+  let empty=document.getElementById("empty-cart");
+  let orderBtn=document.getElementById("order-btn");
+
+  box.innerHTML="";
+  document.getElementById("cart-count").innerText=cart.length;
+  document.getElementById("cart-total").innerText=total;
+
+  if(cart.length===0){
+    empty.style.display="block";
+    orderBtn.style.display="none";
+  }else{
+    empty.style.display="none";
+    orderBtn.style.display="block";
+    
+    cart.forEach((i,index)=>{
+  box.innerHTML+=`
+  <div class="cart-item">
+    <span>${i.name}</span>
+    <span>
+      ₹${i.price}
+      <button class="remove-btn" onclick="removeItem(${index})">✖</button>
+    </span>
+  </div>`;
+    });
+
+  }
+}
+
+
+
+function openMenu(id,el){
+  document.querySelectorAll(".menu-box").forEach(x=>x.style.display="none");
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(id).style.display="block";
+  el.classList.add("active");
+}
+
+
+
+function resetErrors(){
+  document.querySelectorAll(".error-text").forEach(e => e.style.display="none");
+  document.querySelectorAll("input, textarea").forEach(i=>{
+    i.classList.remove("error","valid");
+  });
+}
+
+function getApiErrorMessage(error, fallbackMessage){
+  if(error && typeof error === "object"){
+    if(typeof error.message === "string" && error.message.trim()){
+      return error.message;
+    }
+
+    if(Array.isArray(error.detail) && error.detail.length > 0){
+      return error.detail.map(item => item.msg).join(", ");
+    }
+  }
+
+  return fallbackMessage;
+}
+
+function buildOrderPayload(paymentType){
+  return {
+    name: document.getElementById("order-name").value.trim(),
+    phone: document.getElementById("order-phone").value.trim(),
+    email: document.getElementById("order-email").value.trim(),
+    address: document.getElementById("order-address").value.trim(),
+    payment_type: paymentType,
+    items: getGroupedCartItems()
+  };
+}
+
+async function submitOrder(paymentType){
+  const response = await fetch(`${API_BASE_URL}/api/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(buildOrderPayload(paymentType))
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if(!response.ok){
+    throw new Error(getApiErrorMessage(data, "Failed to place order."));
+  }
+
+  return data;
+}
+
+function clearOrderForm(){
+  cart = [];
+  total = 0;
+  updateCart();
+
+  document.getElementById("qr-box").style.display = "none";
+  document.getElementById("order-form").style.display = "none";
+
+  document.querySelectorAll("#order-form input, #order-form textarea")
+    .forEach(i => i.value = "");
+}
+
+function getGroupedCartItems(){
+  const groupedItems = new Map();
+
+  cart.forEach(item => {
+    const existing = groupedItems.get(item.name);
+    if(existing){
+      existing.quantity += 1;
+    }else{
+      groupedItems.set(item.name, {
+        name: item.name,
+        price: item.price,
+        quantity: 1
+      });
+    }
+  });
+
+  return Array.from(groupedItems.values());
+}
+
+//ORDER VALIDATION
+function showOrderForm(){
+  document.getElementById("order-form").style.display = "block";
+  document.getElementById("qr-box").style.display = "none";
+}
+
+function showQR(){
+  document.getElementById("qr-box").style.display = "block";
+}
+
+
+
+function validateOrder(){
+  resetErrors();
+  let valid = true;
+
+  let name = document.getElementById("order-name");
+  let phone = document.getElementById("order-phone");
+  let email = document.getElementById("order-email");
+  let address = document.getElementById("order-address");
+
+  if(name.value.trim().length < 3){
+    document.getElementById("order-name-error").style.display = "block";
+    name.classList.add("error");
+    valid = false;
+  } else name.classList.add("valid");
+
+  if(!/^\d{10}$/.test(phone.value.trim())){
+    document.getElementById("order-phone-error").style.display = "block";
+    phone.classList.add("error");
+    valid = false;
+  } else phone.classList.add("valid");
+
+  if(email.value.trim().length < 8){
+    document.getElementById("order-email-error").style.display = "block";
+    email.classList.add("error");
+    valid = false;
+  } else email.classList.add("valid");
+
+  if(address.value.trim().length < 12){
+    document.getElementById("order-address-error").style.display = "block";
+    address.classList.add("error");
+    valid = false;
+  } else address.classList.add("valid");
+
+  if(valid){
+    showQR();
+  }
+}
+
+function sendOrderEmail(){
+  let name = document.getElementById("order-name").value;
+  let phone = document.getElementById("order-phone").value;
+  let email = document.getElementById("order-email").value;
+  let address = document.getElementById("order-address").value;
+
+  let itemsText = cart.map(i => `${i.name} - ₹${i.price}`).join("\n");
+
+  emailjs.send("service_4l82sli", "template_0hwvlog", {
+    name: name,
+    phone: phone,
+    email: email,
+    address: address,
+    items: itemsText,
+    total: "₹" + total,
+    payment_type: "Prepaid (QR Payment)",
+    to_email: "chandekarbhoomi1206@gmail.com"
+  })
+  .then(() => {
+    alert("Payment Successful! Order Sent!");
+    cart = [];
+    total = 0;
+    updateCart();
+
+    document.getElementById("qr-box").style.display = "none";
+    document.getElementById("order-form").style.display = "none";
+
+    document.querySelectorAll("#order-form input, #order-form textarea")
+      .forEach(i => i.value = "");
+  })
+  .catch(() => {
+    alert("Failed to send order email");
+  });
+}
+
+
+
+
+
+function validateCOD(){
+  resetErrors();
+  let valid = true;
+
+  let name = document.getElementById("order-name");
+  let phone = document.getElementById("order-phone");
+  let email = document.getElementById("order-email");
+  let address = document.getElementById("order-address");
+
+  if(name.value.trim().length < 3){
+    document.getElementById("order-name-error").style.display = "block";
+    name.classList.add("error");
+    valid = false;
+  } else name.classList.add("valid");
+
+  if(!/^\d{10}$/.test(phone.value.trim())){
+    document.getElementById("order-phone-error").style.display = "block";
+    phone.classList.add("error");
+    valid = false;
+  } else phone.classList.add("valid");
+
+  if(email.value.trim().length < 8){
+    document.getElementById("order-email-error").style.display = "block";
+    email.classList.add("error");
+    valid = false;
+  } else email.classList.add("valid");
+
+  if(address.value.trim().length < 12){
+    document.getElementById("order-address-error").style.display = "block";
+    address.classList.add("error");
+    valid = false;
+  } else address.classList.add("valid");
+
+  if(valid){
+    sendOrderEmailCOD();
+  }
+}
+function sendOrderEmailCOD(){
+  let name = document.getElementById("order-name").value;
+  let phone = document.getElementById("order-phone").value;
+  let email = document.getElementById("order-email").value;
+  let address = document.getElementById("order-address").value;
+
+  let itemsText = cart.map(i => `${i.name} - ₹${i.price}`).join("\n");
+
+  emailjs.send("service_4l82sli", "template_0hwvlog", {
+    name: name,
+    phone: phone,
+    email: email,
+    address: address,
+    items: itemsText,
+    total: "₹" + total,
+    payment_type: "Cash on Delivery",
+    to_email: "chandekarbhoomi1206@gmail.com"
+  })
+  .then(() => {
+    alert("Order Placed Successfully (Cash on Delivery)");
+
+    cart = [];
+    total = 0;
+    updateCart();
+
+    document.getElementById("order-form").style.display = "none";
+
+    document.querySelectorAll("#order-form input, #order-form textarea")
+      .forEach(i => i.value = "");
+  })
+  .catch(() => {
+    alert("Failed to send order email");
+  });
+}
+
+
+
+//RESERVATION VALIDATION
+function validateReservation(){
+  resetErrors();
+  let valid=true;
+
+  let name=document.getElementById("res-name");
+  let guests=document.getElementById("res-guests");
+  let datetime=document.getElementById("res-datetime");
+  let message=document.getElementById("res-message");
+
+  if(name.value.trim().length<3){
+    document.getElementById("res-name-error").style.display="block";
+    name.classList.add("error"); 
+    valid=false;
+  } else name.classList.add("valid");
+
+  if(guests.value==="" || guests.value<1){
+    document.getElementById("res-guests-error").style.display="block";
+    guests.classList.add("error"); 
+    valid=false;
+  } else guests.classList.add("valid");
+
+  if(datetime.value===""){
+    document.getElementById("res-datetime-error").style.display="block";
+    datetime.classList.add("error"); 
+    valid=false;
+  } else datetime.classList.add("valid");
+
+  // SEND EMAIL
+  if(valid){
+    emailjs.send("service_4l82sli", "reservation_admin", {
+      name: name.value,
+      guests: guests.value,
+      datetime: datetime.value,
+      message: message.value,
+      to_email: "chandekarbhoomi1206@gmail.com"
+    })
+    .then(() => {
+      alert("Table Reserved Successfully!");
+      document.querySelectorAll("#reservation input").forEach(i=>i.value="");
+    })
+    .catch(() => {
+      alert("Failed to send email. Check Internet or EmailJS setup");
+    });
+  }
+}
+
+async function sendOrderEmail(){
+  try{
+    const data = await submitOrder("PREPAID");
+    alert(`Payment confirmed. Order #${data.order_id} saved successfully.`);
+    clearOrderForm();
+  }catch(error){
+    alert(error.message || "Failed to place prepaid order.");
+  }
+}
+
+async function sendOrderEmailCOD(){
+  try{
+    const data = await submitOrder("COD");
+    alert(`Order #${data.order_id} placed successfully with Cash on Delivery.`);
+    clearOrderForm();
+  }catch(error){
+    alert(error.message || "Failed to place COD order.");
+  }
+}
+
+function validateReservation(){
+  resetErrors();
+  let valid=true;
+
+  let name=document.getElementById("res-name");
+  let phone=document.getElementById("res-phone");
+  let guests=document.getElementById("res-guests");
+  let datetime=document.getElementById("res-datetime");
+  let message=document.getElementById("res-message");
+  let preorder=document.getElementById("res-preorder");
+
+  if(name.value.trim().length<3){
+    document.getElementById("res-name-error").style.display="block";
+    name.classList.add("error");
+    valid=false;
+  } else name.classList.add("valid");
+
+  if(!/^\d{10}$/.test(phone.value.trim())){
+    document.getElementById("res-phone-error").style.display="block";
+    phone.classList.add("error");
+    valid=false;
+  } else phone.classList.add("valid");
+
+  if(guests.value==="" || guests.value<1){
+    document.getElementById("res-guests-error").style.display="block";
+    guests.classList.add("error");
+    valid=false;
+  } else guests.classList.add("valid");
+
+  if(datetime.value===""){
+    document.getElementById("res-datetime-error").style.display="block";
+    datetime.classList.add("error");
+    valid=false;
+  } else datetime.classList.add("valid");
+
+  if(preorder.checked && cart.length === 0){
+    alert("Add items to your cart before including a preorder.");
+    valid=false;
+  }
+
+  if(valid){
+    const preorderItems = preorder.checked ? getGroupedCartItems() : [];
+
+    fetch(`${API_BASE_URL}/api/reservations`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name.value.trim(),
+        phone: phone.value.trim(),
+        guests: Number(guests.value),
+        datetime: datetime.value,
+        message: message.value.trim(),
+        include_preorder: preorder.checked,
+        preorder_items: preorderItems
+      })
+    })
+    .then(async response => {
+      const data = await response.json().catch(() => ({}));
+
+      if(!response.ok){
+        throw new Error(getApiErrorMessage(data, "Failed to save reservation."));
+      }
+
+      const successMessage = preorder.checked
+        ? `Table reserved successfully. Reservation #${data.reservation_id} saved with your preorder.`
+        : `Table reserved successfully. Reservation #${data.reservation_id} saved.`;
+
+      alert(successMessage);
+      document.querySelectorAll("#reservation input, #reservation textarea").forEach(i=>{
+        if(i.type === "checkbox"){
+          i.checked = false;
+        }else{
+          i.value = "";
+        }
+      });
+    })
+    .catch(error => {
+      alert(error.message || "Failed to save reservation.");
+    });
+  }
+}
+
+
+</script>
+
+</body>
+</html>
