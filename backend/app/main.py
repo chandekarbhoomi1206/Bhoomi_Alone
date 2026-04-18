@@ -15,7 +15,6 @@ load_dotenv(BASE_DIR / ".env", override=True)
 
 from .db import Base, engine, get_db
 from .models import Order, OrderItem, Reservation
-from .notifications import notify_order_created, notify_reservation_created
 from .schemas import (
     AdminOrderOut,
     HealthResponse,
@@ -129,26 +128,6 @@ def create_order(payload: OrderCreate, db: Session = Depends(get_db)) -> OrderRe
     db.commit()
     db.refresh(order)
 
-    notify_order_created(
-        {
-            "order_id": order.id,
-            "name": order.customer_name,
-            "phone": order.phone,
-            "email": order.email,
-            "address": order.address,
-            "payment_type": order.payment_type,
-            "total_amount": order.total_amount,
-            "items": [
-                {
-                    "name": item.item_name,
-                    "price": item.unit_price,
-                    "quantity": item.quantity,
-                }
-                for item in order.items
-            ],
-        }
-    )
-
     return OrderResponse(
         message="Order saved successfully.",
         order_id=order.id,
@@ -194,20 +173,6 @@ def create_reservation(
     db.commit()
     db.refresh(reservation)
 
-    notify_reservation_created(
-        {
-            "reservation_id": reservation.id,
-            "name": reservation.customer_name,
-            "phone": reservation.phone,
-            "guests": reservation.guests,
-            "datetime": reservation.reservation_at.isoformat(sep=" ", timespec="minutes"),
-            "message": reservation.message,
-            "include_preorder": reservation.include_preorder,
-            "preorder_items": reservation.preorder_items or [],
-            "preorder_total": reservation.preorder_total or 0,
-        }
-    )
-
     return ReservationResponse(
         message="Reservation saved successfully.",
         reservation_id=reservation.id,
@@ -216,7 +181,7 @@ def create_reservation(
 
 @app.get("/api/admin/orders", response_model=list[AdminOrderOut])
 def list_orders(
-    limit: int = Query(default=100, ge=1, le=500),
+    limit: int = Query(default=500, ge=1, le=1000),
     _: None = Depends(require_admin_password),
     db: Session = Depends(get_db),
 ) -> list[Order]:
@@ -231,7 +196,7 @@ def list_orders(
 
 @app.get("/api/admin/reservations", response_model=list[ReservationOut])
 def list_reservations(
-    limit: int = Query(default=100, ge=1, le=500),
+    limit: int = Query(default=500, ge=1, le=1000),
     _: None = Depends(require_admin_password),
     db: Session = Depends(get_db),
 ) -> list[Reservation]:

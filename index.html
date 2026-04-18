@@ -100,6 +100,241 @@ body{
   margin-top:20px;
 }
 
+.about-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(280px,0.8fr);
+  gap:48px;
+  align-items:start;
+}
+
+.about-copy{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.about-copy p{
+  color:#efe7d5;
+}
+
+.about-highlight{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.about-chip{
+  background:#222;
+  border:1px solid #303030;
+  border-radius:18px;
+  padding:16px 18px;
+}
+
+.about-chip strong{
+  display:block;
+  color:#d4af37;
+  margin-bottom:4px;
+  font-size:14px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+
+.about-chip span{
+  display:block;
+  color:#ddd4c1;
+  font-size:15px;
+  line-height:1.55;
+}
+
+.about-side{
+  background:#222;
+  border:1px solid #303030;
+  border-radius:28px;
+  padding:32px 28px;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  text-align:center;
+}
+
+.about-side .circle{
+  width:170px;
+  margin:0 auto;
+  display:block;
+  border:4px solid rgba(212,175,55,0.35);
+}
+
+.about-side h3{
+  color:#d4af37;
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.about-side p{
+  color:#efe7d5;
+}
+
+.contact-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.contact-panels{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+}
+
+.contact-panel{
+  background:#232323;
+  border:1px solid #313131;
+  border-radius:22px;
+  padding:24px;
+}
+
+.contact-panel h2{
+  color:#d4af37;
+  margin-bottom:14px;
+  font-size:24px;
+}
+
+.contact-panel pre{
+  margin:0;
+  color:#f2e9d7;
+  font-size:17px;
+  line-height:1.75;
+}
+
+.contact-phone-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.contact-phone-bar{
+  display:inline-block;
+  background:#1b1b1b;
+  border:1px solid #343434;
+  border-radius:16px;
+  padding:14px 16px;
+  color:#f2e9d7;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:0.02em;
+}
+
+.contact-phone-bar:hover{
+  border-color:#d4af37;
+  color:#fff;
+}
+
+.contact-note-box{
+  background:linear-gradient(135deg,#252525 0%, #1c1c1c 100%);
+  border:1px solid #313131;
+  border-left:4px solid #d4af37;
+  border-radius:22px;
+  padding:22px 24px;
+}
+
+.contact-note-box span{
+  display:inline-block;
+  color:#111;
+  background:#d4af37;
+  padding:5px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.04em;
+  margin-bottom:10px;
+}
+
+.contact-note-box p{
+  color:#eee3cf;
+  margin:0;
+  line-height:1.45;
+}
+
+
+.interiors-carousel{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  margin-top:12px;
+  background:#151515;
+}
+
+.carousel-track{
+  display:flex;
+  transition:transform 0.5s ease;
+}
+
+.carousel-slide{
+  min-width:100%;
+  position:relative;
+}
+
+.carousel-slide .fullimg{
+  margin:0;
+  display:block;
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:none;
+  background:rgba(0,0,0,0.58);
+  color:#fff;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:2;
+}
+
+.carousel-btn:hover{
+  background:#d4af37;
+  color:#111;
+}
+
+.carousel-btn.prev{
+  left:18px;
+}
+
+.carousel-btn.next{
+  right:18px;
+}
+
+.carousel-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:18px;
+}
+
+.carousel-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:none;
+  background:#5f5f5f;
+  cursor:pointer;
+}
+
+.carousel-dot.active{
+  background:#d4af37;
+}
+
 /* MENU */
 .tabs{
   display:grid;
@@ -182,7 +417,18 @@ body{
 }
 
 .reservation-notes{
-  min-height:110px;
+  height:56px;
+  min-height:56px;
+  padding:16px;
+  margin-bottom:18px;
+  border-radius:30px;
+  font-size:16px;
+  line-height:1.4;
+  resize:none;
+}
+
+.reservation-notes::placeholder{
+  font-size:16px;
 }
 
 .checkbox-row{
@@ -213,8 +459,6 @@ input.error, textarea.error{
 input.valid, textarea.valid{
   border:2px solid #ffffff;
 }
-
-
 
 
 /* FORM */
@@ -292,6 +536,26 @@ footer a{
 @media(max-width:768px){
   .card h1{font-size:38px}
   .fullimg{height:300px}
+  .about-layout{
+    grid-template-columns:1fr;
+  }
+  .about-highlight{
+    grid-template-columns:1fr;
+  }
+  .contact-panels{
+    grid-template-columns:1fr;
+  }
+  .carousel-btn{
+    width:42px;
+    height:42px;
+    font-size:22px;
+  }
+  .carousel-btn.prev{
+    left:10px;
+  }
+  .carousel-btn.next{
+    right:10px;
+  }
 }
 
 </style>
@@ -323,18 +587,31 @@ footer a{
 <div id="about" class="section">
 <div class="card">
 <h1>About</h1>
-<p>
-The Momeato Restaurant was started in 2010 by Miss. Anupama Joshi.
-This restaurant serves one of the best foods in Ahmedabad.
-This is PURE VEG Restaurant.
-The aim is to serve quality food.
-The chefs are all Housewives.
-Not listed on Swiggy or Zomato.
-It is open from 10 am to 11 pm (All Seven Days).
-</p>
-<p><b>The Chef?</b> Mrs. Anupama A. Kapadia</p>
-<img src="Photo2.png" class="circle">
-<img src="Photo10.png" class="fullimg">
+<div class="about-layout">
+  <div class="about-copy">
+    <p>
+    Momeato is a pure vegetarian restaurant in Ahmedabad built around honest cooking, warm service and the comfort of freshly prepared food. Since 2010, the restaurant has focused on serving dishes that feel generous, flavorful, and made with care.
+    </p>
+    <p>
+    What makes Momeato special is its home-style spirit. The kitchen is led by talented housewives who bring experience, patience, and a personal touch to every plate. The goal is simple: serve quality food in a space where families and friends love to return.
+    </p>
+    <div class="about-highlight">
+      <div class="about-chip">
+        <strong>Since</strong>
+        <span>Fresh vegetarian dining since 2010.</span>
+      </div>
+      <div class="about-chip">
+        <strong>Hours</strong>
+        <span>Open daily, 10:00 AM to 11:00 PM.</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-side">
+    <img src="Photo2.png" class="circle">
+    <h3>Mrs. Anupama Anuj Kapadia</h3>
+    <p>Head chef and one of the hearts behind Momeato's welcoming, home-inspired kitchen.</p>
+  </div>
+</div>
 </div>
 </div>
 
@@ -342,10 +619,22 @@ It is open from 10 am to 11 pm (All Seven Days).
 <div id="interiors" class="section">
 <div class="card">
 <h1>Interiors</h1>
-<img src="Photo3.png" class="fullimg">
-<img src="Photo4.png" class="fullimg">
-<img src="Photo5.png" class="fullimg">
-<img src="Photo6.png" class="fullimg">
+<div class="interiors-carousel">
+  <button class="carousel-btn prev" onclick="moveInteriorSlide(-1)" aria-label="Previous interior image">&#8249;</button>
+  <div id="interiors-track" class="carousel-track">
+    <div class="carousel-slide"><img src="Photo3.png" class="fullimg"></div>
+    <div class="carousel-slide"><img src="Photo4.png" class="fullimg"></div>
+    <div class="carousel-slide"><img src="Photo5.png" class="fullimg"></div>
+    <div class="carousel-slide"><img src="Photo6.png" class="fullimg"></div>
+  </div>
+  <button class="carousel-btn next" onclick="moveInteriorSlide(1)" aria-label="Next interior image">&#8250;</button>
+</div>
+<div class="carousel-dots">
+  <button class="carousel-dot active" onclick="goToInteriorSlide(0)" aria-label="Go to interior image 1"></button>
+  <button class="carousel-dot" onclick="goToInteriorSlide(1)" aria-label="Go to interior image 2"></button>
+  <button class="carousel-dot" onclick="goToInteriorSlide(2)" aria-label="Go to interior image 3"></button>
+  <button class="carousel-dot" onclick="goToInteriorSlide(3)" aria-label="Go to interior image 4"></button>
+</div>
 </div>
 </div>
 
@@ -670,31 +959,33 @@ ORDER NOW
 <div id="contact" class="section">
 <div class="card">
 <h1>Contact</h1>
-
-  <h2>Address :</h2>
-  
-  <pre>
-<b>Dairy Corner,
+<div class="contact-wrap">
+  <div class="contact-panels">
+    <div class="contact-panel">
+      <h2>Address</h2>
+      <pre><b>Dairy Corner,
 Kankaria Road,
-Near Diwan Ballubhai School
+Near Diwan Ballubhai School,
 Kankaria Gate No. : 3,
 Kankaria,
-Ahmedabad - 380008.</b>
+Ahmedabad - 380008.</b></pre>
+    </div>
+    <div class="contact-panel">
+      <h2>Phone Number</h2>
+      <div class="contact-phone-list">
+        <a class="contact-phone-bar" href="tel:8866436934">8866436934</a>
+        <a class="contact-phone-bar" href="tel:8200016294">8200016294</a>
+      </div>
+    </div>
+  </div>
 
-  </pre>
-
-  <h2>Phone Number :</h2>
-  <pre>
-<b>8866436934
-8200016294</b>
-  </pre>
-
-  <p>
-    <span style="background:black;color:white;padding:5px 10px;">NOTE :</span>
-    We offer full-service catering for any event, large or small.
-    We understand your needs and we will cater the food to satisfy the biggest
-    criteria of them all, both look and taste.
-  </p>
+  <div class="contact-note-box">
+    <span>NOTE</span>
+    <p>We offer full-service catering for any event, large or small.<br>
+    We understand your needs.<br>
+    We cater food that satisfies both look and taste.</p>
+  </div>
+</div>
 </div>
 </div>
 
@@ -704,7 +995,7 @@ Ahmedabad - 380008.</b>
 </div>
 
 <footer>
-Powered & Designed by <a href="#">Bhoomi S. Chandekar</a>
+Powered & Designed by <a href="https://github.com/chandekarbhoomi1206" target="_blank" rel="noopener noreferrer">Bhoomi S. Chandekar</a>
 <div style="margin-top:12px"><a href="/admin.html">Open Admin Dashboard</a></div>
 </footer>
 
@@ -712,6 +1003,8 @@ Powered & Designed by <a href="#">Bhoomi S. Chandekar</a>
 let cart=[];
 let total=0;
 const API_BASE_URL = window.location.origin;
+let interiorSlideIndex = 0;
+let interiorCarouselTimer = null;
 
 function addToCart(name,price){
   cart.push({name,price});
@@ -827,6 +1120,45 @@ function clearOrderForm(){
 
   document.querySelectorAll("#order-form input, #order-form textarea")
     .forEach(i => i.value = "");
+}
+
+function renderInteriorCarousel(){
+  const track = document.getElementById("interiors-track");
+  const dots = document.querySelectorAll(".carousel-dot");
+
+  if(!track || dots.length === 0){
+    return;
+  }
+
+  track.style.transform = `translateX(-${interiorSlideIndex * 100}%)`;
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === interiorSlideIndex);
+  });
+}
+
+function goToInteriorSlide(index){
+  const totalSlides = document.querySelectorAll("#interiors-track .carousel-slide").length;
+  if(totalSlides === 0){
+    return;
+  }
+
+  interiorSlideIndex = (index + totalSlides) % totalSlides;
+  renderInteriorCarousel();
+  startInteriorAutoplay();
+}
+
+function moveInteriorSlide(step){
+  goToInteriorSlide(interiorSlideIndex + step);
+}
+
+function startInteriorAutoplay(){
+  if(interiorCarouselTimer){
+    clearInterval(interiorCarouselTimer);
+  }
+
+  interiorCarouselTimer = setInterval(() => {
+    moveInteriorSlide(1);
+  }, 3500);
 }
 
 function getGroupedCartItems(){
@@ -1161,6 +1493,9 @@ function validateReservation(){
     });
   }
 }
+
+renderInteriorCarousel();
+startInteriorAutoplay();
 
 
 </script>

@@ -218,7 +218,7 @@ button.secondary{
 <div id="admin-login" class="auth-shell">
   <div class="auth-card">
     <h1>Admin Login</h1>
-    <p>Enter the admin password from your backend `.env` file to view orders and reservations.</p>
+    <p>Enter Admin Password</p>
     <input id="admin-password" type="password" placeholder="Admin password">
     <p id="auth-error" class="auth-error"></p>
     <div class="actions">
@@ -310,7 +310,6 @@ async function login(){
     showLogin("Enter your admin password.");
     return;
   }
-
   sessionStorage.setItem(ADMIN_PASSWORD_KEY, password);
 
   try{
